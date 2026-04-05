@@ -4,12 +4,17 @@
   "description": "Monorepo-native PR Reviews for Turborepo TypeScript (TSC).",
   "main": "dist/index.js",
   "author": "Vinayaka Hebbar",
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "build": "ncc build reviewer.js -o dist --minify --license LICENSE",
     "test": "node reviewer.js"
   },
+  "dependencies": {
+    "@actions/core": "^3.0.0",
+    "@actions/github": "^9.0.0"
+  },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.3"
+    "@vercel/ncc": "^0.38.0"
   }
 }

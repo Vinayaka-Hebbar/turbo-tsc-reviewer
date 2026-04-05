@@ -11,8 +11,8 @@ Most PR Review tools struggle with monorepo directory structures. **Turbo TSC Re
 
 - ✅ **Monorepo-Native Path Resolution**: Automatically maps TSC errors to the correct workspace folder (apps/ packages/ etc.).
 - ✅ **One-Run Execution**: Executes your `check-types` tasks exactly once, saving time and CI costs. ⚡️
-- ✅ **Conversational PR Reviews**: Posts professional inline comments directly to your PR conversation.
-- ✅ **Zero-Hack Architecture**: Built with native Node.js JSON parsing. No `sed`, `grep`, or regex hacks.
+- ✅ **Flexible Reporting**: Choose between **Conversational PR Reviews** (inline comments) or **GitHub Status Checks** (Checks API).
+- ✅ **Customizable Tasks**: Target any Turborepo task (e.g. `check-types`, `lint`, `build`).
 
 ---
 
@@ -37,6 +37,8 @@ jobs:
         uses: labs/turbo-tsc-reviewer@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          task: "check-types"
+          reporter: "github-pr-check" # Options: github-pr-review, github-pr-check
 ```
 
 ---
@@ -47,15 +49,17 @@ jobs:
 
 1. **Lazy Workspace Discovery**: Dynamically resolves your target package's directory using `npm ls` only when a TSC error is identified.
 2. **Experimental JSON Analysis**: Parses the **`turbo --json`** structured output from your TypeScript tasks for absolute data accuracy.
-3. **Conversational Feedback**: Groups all errors into a single, high-quality **Pull Request Review**.
+3. **Multi-Target Feedback**: Posts feedback via your preferred mechanism (PR Reviews or Checks tab).
 
 ---
 
 ### ⚙️ Inputs
 
-| Input          | Description                                           | Required |
-|----------------|-------------------------------------------------------|----------|
-| `github_token` | The `GITHUB_TOKEN` for posting review comments.       | **Yes**  |
+| Input          | Description                                                                 | Required | Default            |
+|----------------|-----------------------------------------------------------------------------|----------|--------------------|
+| `github_token` | The `GITHUB_TOKEN` for posting review comments.                             | **Yes**  | N/A                |
+| `task`         | The Turborepo task to execute (e.g. `check-types`, `lint`).                 | No       | `check-types`      |
+| `reporter`     | The reporting mode: `github-pr-review` or `github-pr-check`.               | No       | `github-pr-review` |
 
 ---
 

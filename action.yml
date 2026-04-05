@@ -9,7 +9,15 @@ inputs:
   github_token:
     description: "The GITHUB_TOKEN for posting review comments."
     required: true
+  task:
+    description: "The Turborepo task to execute (e.g., check-types, build)."
+    required: false
+    default: "check-types"
+  reporter:
+    description: "The reporter to use (github-pr-review, github-pr-check)."
+    required: false
+    default: "github-pr-check"
 
 runs:
-  using: "node20"
+  using: "node24"
   main: "dist/index.js"
